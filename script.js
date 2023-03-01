@@ -1,6 +1,3 @@
-
-// computer generates random variable
-// let computer return random variable between rock, paper, scissors
 const choicearray = ["rock", "paper", "scissors"];
 
 function getComputerChoice(choicearray) {
@@ -14,7 +11,6 @@ const result = getComputerChoice(choicearray);
 
 let computerSelect = getComputerChoice(choicearray);
 
-// declare score variables to store player and computer score
 let pScore = 0;
 let cScore = 0;
 
@@ -51,9 +47,6 @@ function playRound(playerSelect, computerSelect) {
   }
 }
 
-// play inputs a string (rock, paper, scissors)
-// loop RPS five times
-// return string that declares winner/loser of 5 rounds
 function game() {
   for (let i = 0; i < 5; i++) {
     playerSelect = prompt ("Rock, Paper, or Scissors?").toLowerCase();
@@ -65,14 +58,14 @@ function game() {
     console.log(playRound(playerSelect, computerSelect));
   }
   if (pScore > cScore) {
-    return "Your total score was " + pScore + ", you won the game!";
+    alert ("Your total score was " + pScore + ", you won the game!");
   }
   if (pScore == cScore) {
-    return "The game's a tie!";
+    alert ("The game's a tie!");
   }
   else {
-    return "Your total score was " + pScore + ", you lost the game!"
+    alert ("Your total score was " + pScore + ", you lost the game!");
   }
 }
 
-console.log(game());
+game();
