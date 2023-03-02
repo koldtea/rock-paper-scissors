@@ -1,71 +1,90 @@
-const choicearray = ["rock", "paper", "scissors"];
+// get Computer Choice
+function getComputerChoice() {
+  const computerOptions = ["rock", "paper", "scissors"];
+  const randNumber = Math.floor(Math.random() * 3);
 
-function getComputerChoice(choicearray) {
-  
-  const randomChoice = Math.floor(Math.random() * choicearray.length);
-  const choice = choicearray[randomChoice];
-  
-  return choice;
+  return computerOptions[randNumber];
 }
-const result = getComputerChoice(choicearray);
+// 
+// Player Choice Event Listening
+const options = document.querySelectorAll('button');
 
-let computerSelect = getComputerChoice(choicearray);
+options.forEach(button => button.addEventListener('click', game))
+// 
+// Get Winner
+function whoWon(pChoice, cChoice) {
+  if (pChoice === cChoice) {
+    return "It's a draw!";
+  } 
+    else if (pChoice === "rock" && cChoice === "paper") {
+      return "Computer wins!";
+    }
+    else if (pChoice === "rock" && cChoice === "scissors") {
+      return "Player wins!";
+    }
+    else if (pChoice === "scissors" && cChoice === "paper") {
+      return "Player wins!";
+    }
+    else if (pChoice === "scissors" && cChoice === "rock") {
+      return "Computer wins!";
+    }
+    else if (pChoice === "paper" && cChoice === "scissors") {
+      return "Computer wins!";
+    }
+    else if (pChoice === "paper" && cChoice === "rock") {
+      return "Player wins!";
+    }
+      else {
+        return "Invalid input."
+      }
+}
+// 
+// Announce Winner
+const score = document.getElementById('score');
+const result = document.getElementById('result');
 
 let pScore = 0;
 let cScore = 0;
 
-function playRound(playerSelect, computerSelect) {
-  if (playerSelect == computerSelect) {
-    return "It's a draw!";
+function announceWinner(winner, computerChoice) {
+  if (winner === "Player wins!") {
+    pScore+=1;
+    result.innerHTML = `
+      <h3>You win!</h3>
+      <p>Computer chose ${computerChoice}
+    `;
+  } else if (winner === "Computer wins!") {
+    cScore+=1;
+    result.innerHTML = `
+      <h3>You lose!</h3>
+      <p>Computer chose ${computerChoice}
+    `;
+  } else {
+    result.innerHTML = `
+      <h3>Draw!</h3>
+      <p>Computer chose ${computerChoice}
+    `;
   }
-  else if (playerSelect == "rock" && computerSelect == "paper") {
-    cScore =+1;
-    return "You lose! Paper beats Rock.";
-  }
-  else if (playerSelect == "rock" && computerSelect == "scissors") {
-    pScore =+1;
-    return "You won! Rock beats Scissors.";
-  }
-  else if (playerSelect == "scissors" && computerSelect == "paper") {
-    pScore =+1;
-    return "You won! Scissors beats Paper.";
-  }
-  else if (playerSelect == "scissors" && computerSelect == "rock") {
-    cScore =+1;
-    return "You lost! Rock beats Scissors.";
-  }
-  else if (playerSelect == "paper" && computerSelect == "scissors") {
-    cScore =+1;
-    return "You lose! Scissors beats Paper.";
-  }
-  else if (playerSelect == "paper" && computerSelect == "rock") {
-    pScore =+1;
-    return "You won! Paper beats Rock.";
-  }
-  else {
-    return "Invalid input."
+    score.innerHTML = `
+    <p>Player score: ${pScore}</p>
+    <p>Computer score: ${cScore}</p>
+    `;
+}
+// 
+// Reset game at 6 scores
+function resetGame(pScore, cScore) {
+  if (pScore === 6 || cScore === 6) {
+    score.innerHTML = '<p>Player score: 0</p> <p>Computer score: 0</p>';
+    result.innerHTML = '<h3></h3> <p></p>'
   }
 }
-
-function game() {
-  for (let i = 0; i < 5; i++) {
-    playerSelect = prompt ("Rock, Paper, or Scissors?").toLowerCase();
-    computerSelect = getComputerChoice(choicearray);
-    
-    console.log("Player: " + playerSelect + " Computer: " + computerSelect);
-    alert("Player: " + playerSelect + " Computer: " + computerSelect);
-    
-    console.log(playRound(playerSelect, computerSelect));
-  }
-  if (pScore > cScore) {
-    alert ("Your total score was " + pScore + ", you won the game!");
-  }
-  if (pScore == cScore) {
-    alert ("The game's a tie!");
-  }
-  else {
-    alert ("Your total score was " + pScore + ", you lost the game!");
-  }
+// 
+// Play
+function game(e) {
+  const computerChoice = getComputerChoice();
+  const playerChoice = e.target.id;
+  const winner = whoWon(playerChoice, computerChoice);
+  announceWinner(winner, computerChoice);
+  resetGame(pScore, cScore);
 }
-
-game();
+// 

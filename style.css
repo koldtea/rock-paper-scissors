@@ -1,0 +1,47 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  margin-top: 2em;
+  text-align: center;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 2em;
+}
+
+.score {
+  display: flex;
+  justify-content: space-between;
+  max-width: 25em;
+  margin: 2em auto;
+}
+
+button {
+  display: block;
+  padding: 1em;
+  width: 8em;
+  max-width: 10em;
+}
+
+.score {
+  margin: 5em auto;
+}
+
+.playerOptions {
+  display: flex;
+  gap: 4em;
+  max-width: 30em;
+  margin: 0 auto;
+  justify-content: space-evenly
+}
+
+.result {
+  margin-top : 4em;
+  text-align: center;
+}
+
